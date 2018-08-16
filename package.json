@@ -1,0 +1,22 @@
+{
+  "name": "ft-headline-searcher",
+  "version": "1.0.0",
+  "description": "An app that allows users to search for and view all FT headlines containing specific words. ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/T-Betts/FT-Headline-Searcher.git"
+  },
+  "author": "Tom Betts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/T-Betts/FT-Headline-Searcher/issues"
+  },
+  "homepage": "https://github.com/T-Betts/FT-Headline-Searcher#readme",
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
+}
