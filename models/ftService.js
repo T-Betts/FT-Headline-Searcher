@@ -1,12 +1,15 @@
 require('dotenv').config()
 const rp = require('request-promise')
 const maxResults = 20
+var throwError = (err) => {
+  throw(err)
+}
 
 class FtService {
   constructor() {
   }
 
-  searchForHeadlines(search, page, callback) {
+  searchForHeadlines(search, page, callback, errorCallback = throwError) {
     var offset = (page - 1) * maxResults
     var query = search === "" ? search : "title: " + search
     var options = {
@@ -36,7 +39,7 @@ class FtService {
         callback({articles: response.results[0].results, lastPage: response.results[0].indexCount - parseInt(page) * response.query.resultContext.maxResults < 0})
     })
       .catch(function(err){
-        throw(err)
+        errorCallback(err)
     })
   }
 }

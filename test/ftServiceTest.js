@@ -24,8 +24,8 @@ describe('FtService', () => {
       let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).reply(200, JSON.stringify({ results: [ {results: ['Article'], indexCount: 21 } ], query: { resultContext: { maxResults: 20} } } ));
       ftService = new FtService();
       ftService.searchForHeadlines("Example", 1, (x) => {
-      expect(x.articles).to.deep.equal(['Article'])
-      done();
+        expect(x.articles).to.deep.equal(['Article'])
+        done();
       })
     })
 
@@ -34,8 +34,8 @@ describe('FtService', () => {
       let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).reply(200, JSON.stringify({ results: [ {results: ['Article'], indexCount: 21 } ], query: { resultContext: { maxResults: 20} } } ));
       ftService = new FtService();
       ftService.searchForHeadlines("Example", 2, (x) => {
-      expect(x.articles).to.deep.equal(['Article'])
-      done();
+        expect(x.articles).to.deep.equal(['Article'])
+        done();
       })
     })
 
@@ -44,8 +44,8 @@ describe('FtService', () => {
       let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).reply(200, JSON.stringify({ results: [ {results: ['Article'], indexCount: 21 } ], query: { resultContext: { maxResults: 20} } } ));
       ftService = new FtService();
       ftService.searchForHeadlines("Example", 1, (x) => {
-      expect(x.lastPage).to.not.be.true
-      done();
+        expect(x.lastPage).to.not.be.true
+        done();
       })
     })
 
@@ -54,8 +54,18 @@ describe('FtService', () => {
       let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).reply(200, JSON.stringify({ results: [ {results: ['Article'], indexCount: 19 } ], query: { resultContext: { maxResults: 20} } } ));
       ftService = new FtService();
       ftService.searchForHeadlines("Example", 1, (x) => {
-      expect(x.lastPage).to.be.true
-      done();
+        expect(x.lastPage).to.be.true
+        done();
+      })
+    })
+
+    it('should return a error if a call to the FT API fails', (done) => {
+      setOffset(0)
+      let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).replyWithError("Something went wrong")
+      ftService = new FtService();
+      ftService.searchForHeadlines("Example", 1, undefined, (err) => {
+        expect(err.message).to.deep.equal('Error: Something went wrong')
+        done();
       })
     })
   })
