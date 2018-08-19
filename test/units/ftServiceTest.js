@@ -42,7 +42,7 @@ describe('FtService', () => {
       setOffset(0);
       let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).reply(200, JSON.stringify({ results: [ {results: ['Article'], indexCount: 21 } ], query: { resultContext: { maxResults: 20} } } ));
       ftService.searchForHeadlines("Example", 1, (x) => {
-        expect(x.lastPage).to.not.be.true;
+        expect(x.finalPage).to.not.be.true;
         done();
       })
     })
@@ -51,7 +51,7 @@ describe('FtService', () => {
       setOffset(0);
       let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).reply(200, JSON.stringify({ results: [ {results: ['Article'], indexCount: 19 } ], query: { resultContext: { maxResults: 20} } } ));
       ftService.searchForHeadlines("Example", 1, (x) => {
-        expect(x.lastPage).to.be.true;
+        expect(x.finalPage).to.be.true;
         done();
       })
     })

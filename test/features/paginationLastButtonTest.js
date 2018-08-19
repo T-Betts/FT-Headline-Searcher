@@ -31,7 +31,7 @@ let pageTwoBody = {
 
 Browser.localhost('example.com', 3000);
 
-describe('Pagination Previous Button', () => {
+describe('Pagination Last Button', () => {
 
   const browser = new Browser();
 
@@ -40,13 +40,13 @@ describe('Pagination Previous Button', () => {
     browser.visit('/', done);
   });
 
-  it('should render page 1 of results and remove "previous" button after clicking previous on page 2', () => {
+  it('should render page 1 of results and remove "last" button after clicking last on page 2', () => {
     let serverMock = nock('http://api.ft.com').post('/content/search/v1', pageTwoBody).reply(200, JSON.stringify({ results: [ {results: [{title: {title: 'Article Title'} }], indexCount: 21 } ], query: { resultContext: { maxResults: 20} } }))
     browser.fill('input[name=page]', 2)
     browser.pressButton('Search', () => {
       let serverMock = nock('http://api.ft.com').post('/content/search/v1', pageOneBody).reply(200, JSON.stringify({ results: [ {results: [{title: {title: 'Article Title'} }], indexCount: 21 } ], query: { resultContext: { maxResults: 20} } }))
-      browser.clickLink('#previous-button', () => {
-        expect(browser.query('#previous-button')).not.to.exist;
+      browser.clickLink('#last-button', () => {
+        expect(browser.query('#last-button')).not.to.exist;
       });
     });
   })
