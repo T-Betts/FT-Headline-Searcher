@@ -33,7 +33,7 @@ class FtService {
     rp.post(options)
       .then(function(body){
         var response = JSON.parse(body)
-        callback({articles: response.results[0].results, notLastPage: response.results[0].indexCount - parseInt(page) * response.query.resultContext.maxResults > 0})
+        callback({articles: response.results[0].results, lastPage: response.results[0].indexCount - parseInt(page) * response.query.resultContext.maxResults < 0})
     })
       .catch(function(err){
         throw(err)

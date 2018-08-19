@@ -17,7 +17,6 @@ var setOffset = (offset) => {
   }
 }
 
-
 describe('FtService', () => {
   describe('#searchForHeadlines', () => {
     it('should give back page 1 of results for a given query', (done) => {
@@ -36,6 +35,26 @@ describe('FtService', () => {
       ftService = new FtService();
       ftService.searchForHeadlines("Example", 2, (x) => {
       expect(x.articles).to.deep.equal(['Article'])
+      done();
+      })
+    })
+
+    it('should know if the current specified page IS NOT the last page', (done) => {
+      setOffset(0)
+      let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).reply(200, JSON.stringify({ results: [ {results: ['Article'], indexCount: 21 } ], query: { resultContext: { maxResults: 20} } } ));
+      ftService = new FtService();
+      ftService.searchForHeadlines("Example", 1, (x) => {
+      expect(x.lastPage).to.not.be.true
+      done();
+      })
+    })
+
+    it('should know if the current specified page IS the last page', (done) => {
+      setOffset(0)
+      let serverMock = nock('http://api.ft.com').post('/content/search/v1', body).reply(200, JSON.stringify({ results: [ {results: ['Article'], indexCount: 19 } ], query: { resultContext: { maxResults: 20} } } ));
+      ftService = new FtService();
+      ftService.searchForHeadlines("Example", 1, (x) => {
+      expect(x.lastPage).to.be.true
       done();
       })
     })
