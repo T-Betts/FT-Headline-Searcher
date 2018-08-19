@@ -6,6 +6,13 @@
   </head>
   <body>
     <h1 class="title">FT Headline Search</h1>
+    <div class="sub-heading">
+      <%if(currentSearch === ""){%>
+        <h2>Latest News</h2>
+      <%} else {%>
+        <h2 id="search-term-heading">Headlines related to "<%=currentSearch%>"</h2>
+      <%}%>
+    </div>
     <form class="search-box" action="/" method="get">
       <label>Search for Articles</label>
       <input type="text" name="search" id="search">

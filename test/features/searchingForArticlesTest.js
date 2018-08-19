@@ -5,7 +5,7 @@ const nock = require('nock')
 
 Browser.localhost('example.com', 3000);
 
-describe('FT Headline Search homepage', () => {
+describe('FT Article Searching', () => {
 
   const browser = new Browser();
 
@@ -27,20 +27,11 @@ describe('FT Headline Search homepage', () => {
     browser.visit('/', done);
   });
 
-  describe('Basic homepage elements', () => {
-    it('should have page title', () => {
-      browser.assert.text('.title', 'FT Headline Search');
-    })
-
-    it('should have a search box', () => {
-      browser.fill('search', 'Some Article');
-      browser.assert.input('form input[name=search]', 'Some Article')
-    })
-  })
-
-  describe('Default search results', () => {
-    it('should load the FT news feed when users first visit the site', () => {
-      browser.assert.text('#link-1', 'Article Title')
-    })
+  it('should return articles with headlines related to a given search', () => {
+    let serverMock = nock('http://api.ft.com').post('/content/search/v1').reply(200, JSON.stringify({ results: [ {results: [{title: {title: 'Article Title'} }], indexCount: 21 } ], query: { resultContext: { maxResults: 20} } }))
+    browser.fill('search', 'Test');
+    browser.pressButton('Search', () => {
+      browser.assert.text('#search-term-heading', 'Headlines related to "Test"');
+    });
   })
 })

@@ -9,8 +9,11 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => {
-    ftService.searchForHeadlines("", 1, (apiResponse) => {
-      res.render('index', apiResponse)
+    var search = req.query.search || ""
+    ftService.searchForHeadlines(search, 1, (apiResponse) => {
+      var templateArgs = apiResponse
+      templateArgs.currentSearch = search
+      res.render('index', templateArgs)
     })
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))

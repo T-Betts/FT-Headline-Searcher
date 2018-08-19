@@ -6,9 +6,7 @@ var throwError = (err) => {
 }
 
 class FtService {
-  constructor() {
-  }
-
+  
   searchForHeadlines(search, page, callback, errorCallback = throwError) {
     var offset = (page - 1) * maxResults
     var query = search === "" ? search : "title: " + search
