@@ -10,9 +10,13 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => {
     var search = req.query.search || ""
-    ftService.searchForHeadlines(search, 1, (apiResponse) => {
+    var page = req.query.page || 1
+    ftService.searchForHeadlines(search, page, (apiResponse) => {
       var templateArgs = apiResponse
       templateArgs.currentSearch = search
+      if(page > 1){
+        templateArgs.previousPage = parseInt(page) - 1
+      }
       res.render('index', templateArgs)
     })
   })
