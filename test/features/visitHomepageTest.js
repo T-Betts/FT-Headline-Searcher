@@ -1,11 +1,11 @@
 const appModule = require('../../app.js')
 const Browser = require('zombie');
-// const nock = require('nock
-
+const expect = require('chai').expect
+const nock = require('nock')
 
 Browser.localhost('example.com', 3000);
 
-describe('FT Searcher homepage', () => {
+describe('FT Headline Search homepage', () => {
 
   const browser = new Browser();
 
@@ -15,7 +15,12 @@ describe('FT Searcher homepage', () => {
 
   describe('Basic homepage elements', () => {
     it('should have page title', () => {
-      browser.assert.text('#title', 'FT Headline Search App');
+      browser.assert.text('.title', 'FT Headline Search');
+    })
+
+    it('should have a search box', () => {
+      browser.fill('search', 'Some Article');
+      browser.assert.input('form input[name=search]', 'Some Article')
     })
   })
 })
