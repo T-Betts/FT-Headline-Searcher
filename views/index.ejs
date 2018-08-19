@@ -2,38 +2,43 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+      <title>FT Headline Search</title>
+      <link rel="stylesheet" href="https://www.ft.com/__origami/service/build/v2/bundles/css?modules=o-colors@^4.4.1,o-link-list@^2.0.3,o-buttons,o-header@^7.5.11">
+      <script src="https://www.ft.com/__origami/service/build/v2/bundles/js?modules=o-link-list@^2.0.3,o-colors@^4.4.1,o-buttons,o-header@^7.5.11"></script>
+    </head>
   </head>
-  <body>
+  <body style="background-color: #FFF1E5">
     <h1 class="title">FT Headline Search</h1>
-    <div class="sub-heading">
-      <%if(currentSearch === ""){%>
-        <h2>Latest News</h2>
-      <%} else {%>
-        <h2 id="search-term-heading">Headlines related to "<%=currentSearch%>"</h2>
+      <form class="search-box" action="/" method="get">
+        <label>Search for Articles</label>
+        <input type="text" name="search" id="search">
+        <input type="hidden" name="page" value="1">
+        <input type="submit" value="Search" class="o-buttons o-buttons--secondary">
+      </form>
+      <div class="sub-heading">
+        <%if(currentSearch === ""){%>
+          <h2>Latest News</h2>
+        <%} else {%>
+          <h2 id="search-term-heading">Headlines related to "<%=currentSearch%>"</h2>
+        <%}%>
+      </div>
+      <div class="results">
+        <nav class="o-link-list">
+          <%for(var i = 0; i < articles.length; i++){%>
+            <a class="o-link-list__item" id="link-<%=i + 1%>" href='https://ft.com/content/<%=articles[i].id%>'>
+          <%=articles[i].title.title%>
+            </a>
+            <br>
+          <%}%>
+        </nav>
+      </div>
+      <p class="current-page">Current Page: <%=currentPage%> of <%=pageCount%></p>
+      <br>
+      <%if(locals.previousPage) {%>
+        <a id="previous-button" href='?search=<%=currentSearch%>&page=<%=previousPage%>' class="o-buttons o-buttons--primary o-buttons-icon o-buttons-icon--arrow-left o-buttons--big">Previous</a>
       <%}%>
-    </div>
-    <form class="search-box" action="/" method="get">
-      <label>Search for Articles</label>
-      <input type="text" name="search" id="search">
-      <input type="hidden" name="page" value="1">
-      <input type="submit" value="Search">
-    </form>
-    <div class="results">
-      <%for(var i = 0; i < articles.length; i++){%>
-        <a class="o-link-list__item" id="link-<%=i + 1%>" href='https://ft.com/content/<%=articles[i].id%>'>
-        <%=articles[i].title.title%>
-        </a>
-        <br>
-      <%}%>
-    </div>
-    <p class="current-page">Current Page: <%=currentPage%> of <%=pageCount%></p>
-    <br>
-    <%if(locals.previousPage) {%>
-      <a id="previous-button" href='?search=<%=currentSearch%>&page=<%=previousPage%>'>Previous</a>
-    <%}%>
-    <%if(locals.nextPage) {%>
-      <a id="next-button" href='?search=<%=currentSearch%>&page=<%=nextPage%>'>Next</a>
+      <%if(locals.nextPage) {%>
+      <a id="next-button" href='?search=<%=currentSearch%>&page=<%=nextPage%>' class="o-buttons o-buttons--primary o-buttons-icon o-buttons-icon--arrow-right o-buttons--big">Next</a>
     <%}%>
   </body>
 </html>
