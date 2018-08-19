@@ -14,8 +14,12 @@ express()
     ftService.searchForHeadlines(search, page, (apiResponse) => {
       var templateArgs = apiResponse
       templateArgs.currentSearch = search
+      templateArgs.currentPage = page
       if(page > 1){
         templateArgs.previousPage = parseInt(page) - 1
+      }
+      if(!templateArgs.lastPage){
+        templateArgs.nextPage = parseInt(page) + 1
       }
       res.render('index', templateArgs)
     })

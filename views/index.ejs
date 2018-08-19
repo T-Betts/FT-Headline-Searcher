@@ -27,8 +27,13 @@
         <br>
       <%}%>
     </div>
+    <p class="current-page">Current Page: <%=currentPage%> of <%=pageCount%></p>
+    <br>
     <%if(locals.previousPage) {%>
       <a id="previous-button" href='?search=<%=currentSearch%>&page=<%=previousPage%>'>Previous</a>
+    <%}%>
+    <%if(locals.nextPage) {%>
+      <a id="next-button" href='?search=<%=currentSearch%>&page=<%=nextPage%>'>Next</a>
     <%}%>
   </body>
 </html>

@@ -31,7 +31,7 @@ let pageTwoBody = {
 
 Browser.localhost('example.com', 3000);
 
-describe('Pagination', () => {
+describe('Pagination Previous Button', () => {
 
   const browser = new Browser();
 
