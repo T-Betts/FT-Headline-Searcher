@@ -1,4 +1,4 @@
-var FtService = require('../models/ftService.js');
+var FtService = require('../../models/ftService.js');
 const ftService = new FtService();
 const nock = require('nock');
 const expect = require('chai').expect
