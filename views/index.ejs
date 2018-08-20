@@ -24,11 +24,15 @@
       </div>
       <div class="results">
         <nav class="o-link-list">
-          <%for(var i = 0; i < articles.length; i++){%>
-            <a class="o-link-list__item" id="link-<%=i + 1%>" href='https://ft.com/content/<%=articles[i].id%>'>
-          <%=articles[i].title.title%>
-            </a>
-            <br>
+          <%if(articles === undefined) {%>
+            <p id="no-results-message">Sorry, no headlines matched your search</p>
+          <%} else {%>
+            <%for(var i = 0; i < articles.length; i++){%>
+              <a class="o-link-list__item" id="link-<%=i + 1%>" href='https://ft.com/content/<%=articles[i].id%>'>
+            <%=articles[i].title.title%>
+              </a>
+              <br>
+            <%}%>
           <%}%>
         </nav>
       </div>
