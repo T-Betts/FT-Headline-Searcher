@@ -29,5 +29,8 @@
     "request-promise": "^4.2.2",
     "sinon": "^6.1.5",
     "zombie": "^6.1.4"
+  },
+  "devDependencies": {
+    "supertest": "^4.0.2"
   }
 }
